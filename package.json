@@ -16,6 +16,10 @@
     "key",
     "keyboard"
   ],
-  "author": "x4748",
+  "author": {
+    "name": "X4748",
+    "email": "hamedgasemi200@yahoo.com",
+    "url": "https://tridectet.ir/fa/u/x4748"
+  }
   "license": "MIT"
 }
