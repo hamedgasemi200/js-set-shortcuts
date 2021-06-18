@@ -1,4 +1,4 @@
-module.exports.setShortcut = (shortcuts, block = document, is_focused = true, prevent_default = true) => {
+module.exports = (shortcuts, block = document, is_focused = true, prevent_default = true) => {
 
     // ####################
     // ## Initialization ##
