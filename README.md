@@ -3,6 +3,18 @@ A javascript package to set shortcuts, and callbacks.
 + Supports key orders
 + Supports focus mode.
 
+## installation
+
+```
+npm i td-set-shortcuts
+```
+
+And:
+
+```
+window.setShortcut = require('td-set-shortcuts');
+```
+
 ## Usage
 
 ```
