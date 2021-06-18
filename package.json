@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hamedgasemi200/jsShortcut"
+    "url": "https://github.com/hamedgasemi200/js-set-shortcuts"
   },
   "scripts": {
     "test": "echo \"No test specified\" && exit 1"
