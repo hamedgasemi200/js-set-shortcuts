@@ -1,6 +1,6 @@
 {
   "name": "td-set-shortcuts",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Set shortcuts easily!",
   "main": "src/index.js",
   "repository": {
