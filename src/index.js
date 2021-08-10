@@ -72,14 +72,14 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
     let events = {
         'keydown': (e) => {
             // If key not found, push to pressed keys
-            if (pressed_keys.indexOf(e.key) === -1) pressed_keys.push(e.key);
+            if (pressed_keys.indexOf(e.code) === -1) pressed_keys.push(e.code);
 
             // Listen to keys
             handlers.run_shortcut(e, shortcuts);
         },
         'keyup': (e) => {
             // Get key index
-            let index = pressed_keys.indexOf(e.key);
+            let index = pressed_keys.indexOf(e.code);
 
             // If exists, remove the key.
             if (index !== -1) pressed_keys.splice(index, 1);
