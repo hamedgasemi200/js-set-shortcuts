@@ -37,6 +37,8 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
             // If the clicked element == block.
             is_focused = e.target === block;
             console.log(`is target == block? ${e.target === block}`);
+            console.log(e.target);
+            console.log(e);
 
             // If focus has changed.
             if (was_focused !== is_focused) {
