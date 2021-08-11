@@ -11,29 +11,34 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
     // ####################
 
     let handlers = {
-        add_event_listeners: () => {
+        add_event_listeners: (except = []) => {
             // Add listeners to events
             Object.keys(events).forEach(function (event, index) {
                 // Add listener
-                document.addEventListener(event, events[event]);
+                if (!except.includes(event)) document.addEventListener(event, events[event]);
+            });
+        },
+        remove_event_listeners: (except = []) => {
+            // Remove Listeners
+            Object.keys(events).forEach(function (event, index) {
+                if (!except.includes(event)) document.removeEventListener(event, events[event]);
             });
         },
         update_focus: (e) => {
-            if (block === document) return is_focused = true;
-
-            // Update focus
+            // Keep the previous state
             let was_focused = is_focused;
-            is_focused = e.target === block || block === document.activeElement;
 
-            // if focus has changed
+            // If the clicked element == block.
+            is_focused = e.target === block;
+
+            // If focus has changed.
             if (was_focused !== is_focused) {
-                // if unfocused
-                if (!is_focused) {
+                // Has been focused
+                if (is_focused) handlers.add_event_listeners();
+                else {
                     // Remove Listeners
-                    Object.keys(events).forEach(function (event, index) {
-                        if (event !== 'click') document.removeEventListener(event, events[event]);
-                    });
-                } else handlers.add_event_listeners();
+                    handlers.remove_event_listeners(['click']);
+                }
             }
         },
         run_shortcut: (e, current, depth = 1) => {
