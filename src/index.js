@@ -38,6 +38,7 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
             is_focused = e.target === block;
             console.log(`is target == block? ${e.target === block}`);
             console.log(e.target);
+            console.log(e.currentTarget);
             console.log(e);
 
             // If focus has changed.
