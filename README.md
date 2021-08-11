@@ -20,14 +20,14 @@ window.setShortcut = require('td-set-shortcuts');
 ```
 // Set shortcuts
 let shortcuts = {
-  'Control': {
-    'h': () => {
-      console.log("Hello World!");
-    },
-    '*': () => {
-      console.log("You pressed other keys.");
-    }
-  }
+   'ControlLeft': {
+      'KeyH': () => {
+         alert("Hello World!");
+      },
+      '*': () => {
+         console.log("You pressed other keys.");
+      },
+   }
 };
 
 // Set the block in which commands should be executed (default: document).

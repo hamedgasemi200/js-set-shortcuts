@@ -57,7 +57,7 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
 
             // Iterate through the keys
             keys.every(function (key, i) {
-                // If shortcut key is pressed, or it's *
+                // If shortcut key == the pressed key, or it's *
                 if (depth <= pressed_keys.length && (pressed_keys[depth - 1] === key || key === '*')) {
                     if (typeof current[key] == 'function') {
                         // Prevent Default
@@ -66,8 +66,8 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
                         // Run the function
                         current[key](e);
 
-                        // If it's not the *, stop iteration for searching.
-                        if (key !== '*') return false;
+                        // Stop searching for other keys
+                        return false;
                     }
                     // If it needs multiple keys
                     else if (typeof current[key] == 'object') {
