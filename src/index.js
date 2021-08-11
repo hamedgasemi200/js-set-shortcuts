@@ -97,9 +97,6 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
             // Update focus
             handlers.update_focus(e);
         },
-        DOMContentLoaded: (e) => {
-            if (document !== block) handlers.update_focus(e);
-        },
     };
 
     // Add liteners to events
