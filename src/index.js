@@ -15,19 +15,13 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
             // Add listeners to events
             Object.keys(events).forEach(function (event, index) {
                 // Add listener
-                if (!except.includes(event)) {
-                    console.log(`added: ${event}`);
-                    document.addEventListener(event, events[event], {capture: true});
-                }
+                if (!except.includes(event)) document.addEventListener(event, events[event], {capture: true});
             });
         },
         remove_event_listeners: (except = []) => {
             // Remove Listeners
             Object.keys(events).forEach(function (event, index) {
-                if (!except.includes(event)) {
-                    console.log(`removed: ${event}`);
-                    document.removeEventListener(event, events[event], {capture: true});
-                }
+                if (!except.includes(event)) document.removeEventListener(event, events[event], {capture: true});
             });
         },
         update_focus: (e) => {
