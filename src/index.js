@@ -33,22 +33,25 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
         update_focus: (e) => {
             // Keep the previous state
             let was_focused = is_focused;
+            let target_element = e.target; // clicked element
 
-            // If the clicked element == block.
-            is_focused = e.target === block;
-            console.log(`is target == block? ${e.target === block}`);
-            console.log(e.target);
-            console.log(e.currentTarget);
-            console.log(e);
+            // Get parents till reaching the end
+            do {
+                // If the target is the the block || block is the document
+                is_focused = target_element === block || block === document;
+
+                // If is focused stop the loop.
+                if (is_focused) break;
+
+                // Go up the DOM
+                target_element = target_element.parentNode;
+            } while (target_element);
 
             // If focus has changed.
             if (was_focused !== is_focused) {
                 // Has been focused
                 if (is_focused) handlers.add_event_listeners();
-                else {
-                    // Remove Listeners
-                    handlers.remove_event_listeners(['click']);
-                }
+                else handlers.remove_event_listeners(['click']);
             }
         },
         run_shortcut: (e, current, depth = 1) => {
