@@ -103,5 +103,5 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
     };
 
     // Add liteners to events
-    handlers.add_event_listeners();
+    handlers.add_event_listeners(is_focused ? [] : ['keydown', 'keyup']);
 };
