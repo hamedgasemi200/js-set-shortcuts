@@ -115,6 +115,10 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
             // Update focus
             handlers.update_focus(e);
         },
+        "visibilitychange": (e) => {
+            // If tab is not focused, remove the pressed keys
+            if (document.visibilityState != "visible") pressed_keys = [];
+        },
     };
 
     // Add liteners to events
