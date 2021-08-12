@@ -15,7 +15,7 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
             // Add listeners to events
             Object.keys(events).forEach(function (event, index) {
                 // Add listener
-                if (!except.includes(event)) window.addEventListener(event, events[event]);
+                if (!except.includes(event)) document.addEventListener(event, events[event]);
             });
         },
         remove_event_listeners: (except = []) => {
