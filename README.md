@@ -24,8 +24,8 @@ let shortcuts = {
       'KeyH': () => {
          alert("Hello World!");
       },
-      '*': () => {
-         console.log("You pressed other keys.");
+      '*': (e) => {
+         if(e.key !== 'h') console.log("You pressed [control + other keys]!");
       },
    }
 };
