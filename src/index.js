@@ -70,8 +70,8 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
 
                         // If shortcut key is not '*'
                         if (key !== '*') {
-                            // If * exists at the following iterations.
-                            if (key.includes('*')) {
+                            // If after the pressed key, * exists
+                            if (shortcut_keys.indexOf('*') > shortcut_keys.indexOf(key)) {
                                 // Run * shortcut
                                 current['*'](e);
                             }
