@@ -15,7 +15,7 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
             // Add listeners to events
             Object.keys(events).forEach(function (event, index) {
                 // Add listener
-                if (!except.includes(event)) document.addEventListener(event, events[event]);
+                if (!except.includes(event)) window.addEventListener(event, events[event]);
             });
         },
         remove_event_listeners: (except = []) => {
@@ -50,15 +50,16 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
         },
         run_shortcut: (e, current, depth = 1) => {
             // Iterate through the shortcuts
-            keys = Object.keys(current);
+            shortcut_keys = Object.keys(current);
 
-            // If something has been pressed && it's not * && keys don't have the pressed key
-            if (pressed_keys.length && !keys.includes('*') && !keys.includes(pressed_keys[depth - 1])) return pressed_keys = [];
+            // If something has been pressed && shortcuts don't have * && the pressed key is not in shortcuts
+            if (pressed_keys.length && !shortcut_keys.includes('*') && !shortcut_keys.includes(pressed_keys[depth - 1])) return pressed_keys = [];
 
-            // Iterate through the keys
-            keys.every(function (key, i) {
-                // If shortcut key == the pressed key, or it's *
-                if (depth <= pressed_keys.length && (pressed_keys[depth - 1] === key || key === '*')) {
+            // Iterate through the shortcut keys
+            shortcut_keys.every(function (key, i) {
+                // If the pressed key == shortcut key, or it's *
+                if (pressed_keys[depth - 1] === key || key === '*') {
+
                     // If shortcut is a function
                     if (typeof current[key] == 'function') {
                         // Prevent Default
@@ -75,7 +76,7 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
                                 current['*'](e);
                             }
 
-                            // stop searching for other keys.
+                            // stop searching for other shortcut keys.
                             return false;
                         }
                     }

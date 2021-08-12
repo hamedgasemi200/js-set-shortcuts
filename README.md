@@ -22,7 +22,7 @@ window.setShortcut = require('td-set-shortcuts');
 let shortcuts = {
    'ControlLeft': {
       'KeyH': () => {
-         alert("Hello World!");
+         console.log("Hello World!");
       },
       '*': (e) => {
          if(e.key !== 'h') console.log("You pressed [control + other keys]!");
@@ -42,3 +42,5 @@ let prevent_default = true;
 // Run the package.
 setShortcut(shortcuts, block, is_focused, prevent_default);
 ```
+
+> Note: Do not use alert in callback functions. When alert is executed, the keyup won't get fired, and the library won't work correctly.
