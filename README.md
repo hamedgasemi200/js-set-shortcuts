@@ -1,6 +1,6 @@
 A javascript package to set shortcuts, and callbacks.
 
-+ Supports key orders
++ Supports nested key order.
 + Supports focus mode.
 
 ## installation
