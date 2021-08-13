@@ -15,31 +15,36 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
             // Add listeners to events
             Object.keys(events).forEach(function (event, index) {
                 // Add listener
-                if (!except.includes(event)) document.addEventListener(event, events[event]);
+                if (!except.includes(event)) document.addEventListener(event, events[event], true);
             });
         },
         remove_event_listeners: (except = []) => {
             // Remove Listeners
             Object.keys(events).forEach(function (event, index) {
-                if (!except.includes(event)) document.removeEventListener(event, events[event]);
+                if (!except.includes(event)) document.removeEventListener(event, events[event], true);
             });
         },
-        update_focus: (e) => {
+        update_focus: (e = true) => {
             // Keep the previous state
             let was_focused = is_focused;
-            let target_element = e.target; // clicked element
 
-            // Get parents till reaching the end
-            do {
-                // If the target is the the block || block is the document
-                is_focused = target_element === block || block === document;
+            // If e is an event object.
+            if (typeof e === 'object') {
+                // Get the clicked dom element
+                let target_element = e.target;
 
-                // If is focused stop the loop.
-                if (is_focused) break;
+                // Get parents till reaching the end
+                do {
+                    // If the target is the the block || block is the document
+                    is_focused = target_element === block || block === document;
 
-                // Go up the DOM
-                target_element = target_element.parentNode;
-            } while (target_element);
+                    // If is focused stop the loop.
+                    if (is_focused) break;
+
+                    // Go up the DOM
+                    target_element = target_element.parentNode;
+                } while (target_element && target_element !== documet.body); // run till it exists, and is not the body
+            } else is_focused = update_to;
 
             // If focus has changed.
             if (was_focused !== is_focused) {
@@ -111,16 +116,16 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
             // If exists, remove the key.
             if (index !== -1) pressed_keys.splice(index, 1);
         },
-        'click': (e) => {
-            // Update focus
-            handlers.update_focus(e);
-        },
         "visibilitychange": (e) => {
             // If tab is not focused, remove the pressed keys
             if (document.visibilityState != "visible") pressed_keys = [];
         },
+        'click': (e) => {
+            // Update focus
+            handlers.update_focus(e);
+        },
     };
 
-    // Add liteners to events
-    handlers.add_event_listeners(is_focused ? [] : ['keydown', 'keyup']);
+    // Add liteners to events => If it's focused, add no exception, else, remove everything except 'click'.
+    handlers.add_event_listeners(is_focused ? [] : Object.keys(events).filter(item => !['click'].includes(item)));
 };
