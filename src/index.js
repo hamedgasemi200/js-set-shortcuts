@@ -43,7 +43,7 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
 
                     // Go up the DOM
                     target_element = target_element.parentNode;
-                } while (target_element && target_element !== documet.body); // run till it exists, and is not the body
+                } while (target_element && target_element !== document.body); // run till it exists, and is not the body
             } else is_focused = update_to;
 
             // If focus has changed.
