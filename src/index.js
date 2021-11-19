@@ -108,6 +108,31 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
 
             // Listen to keys
             handlers.run_shortcut(e, shortcuts);
+
+            // Immediately Invoked Function Expressions
+            (() => {
+                // Get the old alert and confirm
+                let old_alert = window.alert;
+                let old_confirm = window.alert;
+
+                // Update confirm
+                window.alert = function () {
+                    // Run the original alert
+                    old_alert.apply(window, arguments);
+
+                    // Remove all key pressed
+                    pressed_keys = [];
+                };
+
+                // Update confirm
+                window.confirm = function () {
+                    // Run the original confirm
+                    old_confirm.apply(window, arguments);
+
+                    // Remove all key pressed
+                    pressed_keys = [];
+                };
+            })();
         },
         'keyup': (e) => {
             // Get key index
