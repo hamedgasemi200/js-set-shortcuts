@@ -5,6 +5,8 @@ A javascript package to set shortcuts, and callbacks.
 
 ## installation
 
+Install the [npm package](https://www.npmjs.com/package/td-set-shortcuts):
+
 ```
 npm i td-set-shortcuts
 ```
