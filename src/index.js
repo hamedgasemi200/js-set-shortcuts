@@ -1,5 +1,4 @@
 module.exports = (shortcuts, block = document, is_focused = true, prevent_default = true) => {
-
     // ####################
     // ## Initialization ##
     // ####################
@@ -95,6 +94,26 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
                 return true;
             });
         },
+        clear_keys_on_alert: function (original) {
+            // Update the alert
+            window.alert = function () {
+                // Run the original alert
+                original.apply(window, arguments);
+
+                // Remove all key pressed
+                pressed_keys = [];
+            };
+        },
+        clear_keys_on_confirm: function (original) {
+            // Update the confirm
+            window.confirm = function () {
+                // Run the original confirm
+                original.apply(window, arguments);
+
+                // Remove all key pressed
+                pressed_keys = [];
+            };
+        },
     };
 
     // #####################
@@ -108,31 +127,6 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
 
             // Listen to keys
             handlers.run_shortcut(e, shortcuts);
-
-            // Immediately Invoked Function Expressions
-            (() => {
-                // Get the old alert and confirm
-                let old_alert = window.alert;
-                let old_confirm = window.alert;
-
-                // Update confirm
-                window.alert = function () {
-                    // Run the original alert
-                    old_alert.apply(window, arguments);
-
-                    // Remove all key pressed
-                    pressed_keys = [];
-                };
-
-                // Update confirm
-                window.confirm = function () {
-                    // Run the original confirm
-                    old_confirm.apply(window, arguments);
-
-                    // Remove all key pressed
-                    pressed_keys = [];
-                };
-            })();
         },
         'keyup': (e) => {
             // Get key index
@@ -153,4 +147,8 @@ module.exports = (shortcuts, block = document, is_focused = true, prevent_defaul
 
     // Add liteners to events => If it's focused, add no exception, else, remove everything except 'click'.
     handlers.add_event_listeners(is_focused ? [] : Object.keys(events).filter(item => !['click'].includes(item)));
+
+    // Clear keys on alert/confirm popups.
+    handlers.clear_keys_on_alert(window.alert);
+    handlers.clear_keys_on_confirm(window.confirm);
 };
